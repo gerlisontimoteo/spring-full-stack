@@ -1,13 +1,19 @@
 package com.api.lojadegames.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table
@@ -28,7 +34,14 @@ public class Usuario {
 	@Size(min=6, max=25)
 	private String senha;
 	
-	private Jogo jogo;
+	//@ManyToMany(mappedBy = "usuario")
+	@ManyToMany
+	@JoinTable(name="jogosDoUsuário",
+	uniqueConstraints = @UniqueConstraint(columnNames = { "id_usuario", "id_jogo" }),
+	joinColumns = @JoinColumn(name = "id_jogo" ),
+	        inverseJoinColumns = @JoinColumn(name = "id_usuario")
+	    )
+	private List<Jogo> jogo;
 
 	// GETTERS AND SETTERS
 	public long getId() {
@@ -63,12 +76,14 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public Jogo getJogo() {
+	public List<Jogo> getJogo() {
 		return jogo;
 	}
 
-	public void setJogo(Jogo jogo) {
+	public void setJogo(List<Jogo> jogo) {
 		this.jogo = jogo;
 	}
+
+
 	
 }

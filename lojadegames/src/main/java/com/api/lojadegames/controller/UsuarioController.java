@@ -40,7 +40,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(repository.getAllByNomeContainingIgnoreCase(nome));
 	}
 	
-	@PostMapping
+	@PostMapping("/usuario")
 	public ResponseEntity<Usuario> post(@RequestBody Usuario usuario){
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
 	}

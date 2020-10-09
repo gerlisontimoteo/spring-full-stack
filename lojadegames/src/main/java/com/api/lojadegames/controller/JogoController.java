@@ -20,7 +20,7 @@ import com.api.lojadegames.repository.JogoRepository;
 
 
 @RestController
-@RequestMapping("usuario")
+@RequestMapping("jogo")
 @CrossOrigin("*")
 public class JogoController {
 	@Autowired
@@ -41,7 +41,7 @@ public class JogoController {
 		return ResponseEntity.ok(repository.getAllByTituloContainingIgnoreCase(titulo));
 	}
 	
-	@PostMapping
+	@PostMapping("/jogo")
 	public ResponseEntity<Jogo> post(@RequestBody Jogo jogo){
 		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(jogo));
 	}
